@@ -1,0 +1,1 @@
+export type Maze = Array<Array<0 | 1 | 2 | 3>>;
