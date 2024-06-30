@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React, {KeyboardEvent, useState} from "react";
 import {useMazeContext} from "@/context";
 
 export const MazeInitializer = () => {
     const { setMaze } = useMazeContext();
     const [rows, setRows] = useState<number>(25);
     const [cols, setCols] = useState<number>(25);
-
     const initializeMaze = () => {
         const maze = [];
         for (let i = 0; i < rows; i++) {
@@ -16,7 +15,11 @@ export const MazeInitializer = () => {
         }
         setMaze(maze);
     };
-
+    const onKeyDown = (e: KeyboardEvent) => {
+        if (e.code === 'Enter') {
+            initializeMaze();
+        }
+    };
     return (
         <div className='row-container'>
             <table>
@@ -38,6 +41,7 @@ export const MazeInitializer = () => {
                             type='number'
                             value={cols}
                             onChange={e => setCols(e.target.value as number)}
+                            onKeyDown={onKeyDown}
                         />
                     </td>
                 </tr>
