@@ -48,9 +48,9 @@ export const MazeEditor = () => {
                         for (let j = minCol; j <= maxCol; j++) {
                             maze[i][j] = fillMode === 'fill' ? 1 : 0;
                             clearStartAndEnd(i, j);
-                            setMaze([...maze]);
                         }
                     }
+                    setMaze([...maze]);
                     setFillStartPoint(null);
                 } else {
                     // keep track of the first cell clicked during fill/remove mode
