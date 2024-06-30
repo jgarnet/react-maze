@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
-import {FillMode, Point} from "@/types";
-import {MazeEditorContextProvider, useMazeContext} from "@/context";
-import {FillModeControl, MazeExporter, MazeImporter, MazeInitializer, MazeViewer} from "@/components";
+import {useMaze} from "@/hooks";
+import {MazeContextProvider} from "@/context";
+import {FillModeControl, HomeButton, MazeExporter, MazeImporter, MazeInitializer, MazeViewer} from "@/components";
+import React, {MouseEvent, useState} from "react";
 import {useSearchParams} from "react-router-dom";
+import {Point} from "@/types";
+import "./MazeEditorPage.scss";
 
-export const MazeEditor = () => {
+export const MazeEditorPage = () => {
+    const mazeState = useMaze();
     /* State Management Operations */
     const [searchParams] = useSearchParams();
-    const { maze, setMaze, start, setStart, end, setEnd } = useMazeContext();
+    const { maze, setMaze, start, setStart, end, setEnd } = mazeState;
     // toggles what fill mode is used when cells are clicked during editing
     const [fillMode, _setFillMode] = useState<FillMode>('fill');
     // keeps track of what cells to fill during editing
@@ -75,30 +78,57 @@ export const MazeEditor = () => {
                 break;
         }
     };
+    const onCellClick = (event: MouseEvent, row: number, col: number) => {
+        onFill(row, col);
+    };
+    const onCellHover = (event: MouseEvent, row: number, col: number) => {
+        if (['fill', 'remove'].indexOf(fillMode) !== -1) {
+            setCurrentHoverPoint({ x: col, y: row });
+        }
+    };
+    const getCellClassName = (row: number, col: number) => {
+        let className = ' edit';
+        // determine if current cell is within bounds of fill range
+        // if so, highlight the current cell based on the fill mode
+        if (fillStartPoint && currentHoverPoint) {
+            const minX = Math.min(fillStartPoint.x, currentHoverPoint.x);
+            const maxX = Math.max(fillStartPoint.x, currentHoverPoint.x);
+            const minY = Math.min(fillStartPoint.y, currentHoverPoint.y);
+            const maxY = Math.max(fillStartPoint.y, currentHoverPoint.y);
+            if (row >= minY && row <= maxY && col >= minX && col <= maxX) {
+                className += ` ${fillMode}`;
+            }
+        }
+        return className;
+    };
     /* Render Operations */
     // if no maze state exists, import or build maze
-    if (!maze || maze.length === 0) {
+    const hasMaze = maze && maze.length > 0;
+    const renderInitialize = () => {
         if (searchParams.get('import') === 'true') {
             return <MazeImporter />;
         } else {
             return <MazeInitializer />;
         }
-    }
+    };
     return (
-        <div className='col-container maze-editor'>
-            <MazeEditorContextProvider
-                setCol={setCol}
-                fillMode={fillMode}
-                setFillMode={setFillMode}
-                onFill={onFill}
-                currentHoverPoint={currentHoverPoint}
-                setCurrentHoverPoint={setCurrentHoverPoint}
-                fillStartPoint={fillStartPoint}
-            >
-                <FillModeControl />
-                <MazeExporter />
-                <MazeViewer />
-            </MazeEditorContextProvider>
-        </div>
+        <MazeContextProvider
+            {...mazeState}
+            onCellClick={onCellClick}
+            onCellHover={onCellHover}
+            getCellClassName={getCellClassName}
+        >
+            <div className='col-container maze-editor'>
+                <HomeButton />
+                {hasMaze && (
+                    <>
+                        <FillModeControl fillMode={fillMode} setFillMode={setFillMode} />
+                        <MazeExporter/>
+                        <MazeViewer/>
+                    </>
+                )}
+                {!hasMaze && renderInitialize()}
+            </div>
+        </MazeContextProvider>
     );
 };

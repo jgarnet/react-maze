@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {MazeCol} from "@/components";
 import {useMazeContext} from "@/context";
-import './MazeRow.scss';
+import "./MazeRow.scss";
 
 type MazeRowProps = {
     cols: Array<0 | 1 | 2 | 3>;

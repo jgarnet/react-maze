@@ -1,7 +1,13 @@
-import {useMazeEditorContext} from "@/context";
+import {FillMode} from "@/types";
+import {FC} from "react";
 
-export const FillModeControl = () => {
-    const { fillMode, setFillMode } = useMazeEditorContext();
+type FillModeControlProps = {
+    fillMode: FillMode;
+    setFillMode: (fillMode: FillMode) => void;
+};
+
+export const FillModeControl: FC<FillModeControlProps> = props => {
+    const { fillMode, setFillMode } = props;
     return (
         <table>
             <tbody>

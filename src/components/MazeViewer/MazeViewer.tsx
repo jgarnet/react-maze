@@ -1,7 +1,7 @@
 import React from 'react';
 import {useMazeContext} from "@/context";
 import {MazeRow, MazeSizeControl} from "@/components";
-import './MazeViewer.scss';
+import "./MazeViewer.scss";
 
 export const MazeViewer = () => {
 

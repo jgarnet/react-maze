@@ -1,5 +1,4 @@
-import {PathPoint, Point} from "@/types";
-import {useMazeContext} from "@/context";
+import {Maze, PathPoint, Point} from "@/types";
 import {useMemo} from "react";
 
 const DIRECTIONS: Point[] = [
@@ -12,8 +11,7 @@ const DIRECTIONS: Point[] = [
     // left
     { x: -1, y: 0 }
 ];
-export const useSolveMaze: () => PathPoint | null = () => {
-    const { maze, start, end } = useMazeContext();
+export const useSolveMaze: (maze: Maze, start: Point, end: Point) => PathPoint | null = (maze, start, end) => {
     return useMemo(() => {
         if (!maze || maze.length === 0 || !start || !end) {
             return null;

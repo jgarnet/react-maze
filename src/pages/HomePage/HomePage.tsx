@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 
-export const Home = () => {
+export const HomePage = () => {
     const navigate = useNavigate();
     return (
         <div className='row-container'>

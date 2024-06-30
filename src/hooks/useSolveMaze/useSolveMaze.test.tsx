@@ -1,7 +1,7 @@
 import React, {FC, ReactNode} from 'react';
 import {MazeContextProvider} from "@/context";
 import {renderHook} from "@testing-library/react";
-import {useSolveMaze} from "@/hooks/useSolveMaze";
+import {useSolveMaze} from "@/hooks/useSolveMaze/useSolveMaze";
 import unsolvable from '@data/unsolvable.json';
 import simple from '@data/simple.json';
 import {Maze, Point} from "@/types";
