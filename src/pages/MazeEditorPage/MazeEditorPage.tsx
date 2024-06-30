@@ -1,4 +1,4 @@
-import {useMaze} from "@/hooks";
+import {useHasMaze, useMaze} from "@/hooks";
 import {MazeContextProvider} from "@/context";
 import {FillModeControl, HomeButton, MazeExporter, MazeImporter, MazeInitializer, MazeViewer} from "@/components";
 import React, {MouseEvent, useState} from "react";
@@ -7,10 +7,11 @@ import {Point} from "@/types";
 import "./MazeEditorPage.scss";
 
 export const MazeEditorPage = () => {
-    const mazeState = useMaze();
     /* State Management Operations */
     const [searchParams] = useSearchParams();
+    const mazeState = useMaze();
     const { maze, setMaze, start, setStart, end, setEnd } = mazeState;
+    const hasMaze = useHasMaze(maze);
     // toggles what fill mode is used when cells are clicked during editing
     const [fillMode, _setFillMode] = useState<FillMode>('fill');
     // keeps track of what cells to fill during editing
@@ -102,8 +103,6 @@ export const MazeEditorPage = () => {
         return className;
     };
     /* Render Operations */
-    // if no maze state exists, import or build maze
-    const hasMaze = maze && maze.length > 0;
     const renderInitialize = () => {
         if (searchParams.get('import') === 'true') {
             return <MazeImporter />;

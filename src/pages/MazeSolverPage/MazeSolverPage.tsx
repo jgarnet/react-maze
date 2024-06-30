@@ -1,4 +1,4 @@
-import {useMaze, useSolveMaze} from "@/hooks";
+import {useHasMaze, useMaze, useSolveMaze} from "@/hooks";
 import {PathPoint} from "@/types";
 import {useEffect, useState} from "react";
 import {MazeContextProvider} from "@/context";
@@ -8,9 +8,9 @@ import "./MazeSolverPage.scss";
 export const MazeSolverPage = () => {
     const mazeState = useMaze();
     const { maze, start, end } = mazeState;
+    const hasMaze = useHasMaze(maze);
     const solution = useSolveMaze(maze, start, end);
     const [points, setPoints] = useState<Set<string>>(new Set<string>());
-    const hasMaze = maze && maze.length > 0;
     const getCellClassName = (row: number, col: number) => {
         // if in solver mode, highlight the cell as a 'solution' cell
         if (points.has(`${col},${row}`)) {
