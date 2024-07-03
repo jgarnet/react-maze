@@ -1,7 +1,8 @@
 import {useState} from "react";
 import {Maze, Point} from "@/types";
+import {MazeState} from "@/types/MazeState";
 
-export const useMaze = () => {
+export const useMaze: () => MazeState = () => {
     // initialize App state
     const [maze, setMaze] = useState<Maze>(null);
     const [cellSize, setCellSize] = useState<number>(25);
