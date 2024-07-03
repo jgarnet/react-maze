@@ -9,3 +9,4 @@ export * from './MazeInitializer/MazeInitializer';
 export * from './MazeRow/MazeRow';
 export * from './MazeSizeControl/MazeSizeControl';
 export * from './MazeViewer/MazeViewer';
+export * from './ToggleSolution/ToggleSolution';

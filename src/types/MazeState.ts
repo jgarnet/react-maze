@@ -6,8 +6,8 @@ export type MazeState = {
     setMaze: (maze: Maze) => void;
     cellSize: number;
     setCellSize: (cellSize: number) => void;
-    start: Point;
-    setStart: (start: Point) => void;
-    end: Point;
-    setEnd: (end: Point) => void;
+    start: Point | null;
+    setStart: (start: Point | null) => void;
+    end: Point | null;
+    setEnd: (end: Point | null) => void;
 };

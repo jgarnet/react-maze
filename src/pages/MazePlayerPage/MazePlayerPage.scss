@@ -1,0 +1,11 @@
+.maze.player {
+  .maze-col.player, .maze-col.player.end {
+    background: #1a4f7a;
+  }
+  .maze-col.end {
+    background: #7a1a1a;
+  }
+  .maze-col.solution {
+    background: #1a7a28;
+  }
+}

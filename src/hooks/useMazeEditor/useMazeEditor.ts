@@ -1,5 +1,5 @@
 import {MouseEvent, useState} from "react";
-import {Point} from "@/types";
+import {FillMode, Point} from "@/types";
 import {MazeState} from "@/types/MazeState";
 
 export const useMazeEditor = (mazeState: MazeState) => {
@@ -7,8 +7,8 @@ export const useMazeEditor = (mazeState: MazeState) => {
     // toggles what fill mode is used when cells are clicked during editing
     const [fillMode, _setFillMode] = useState<FillMode>('fill');
     // keeps track of what cells to fill during editing
-    const [fillStartPoint, setFillStartPoint] = useState<Point>(null);
-    const [currentHoverPoint, setCurrentHoverPoint] = useState<Point>(null);
+    const [fillStartPoint, setFillStartPoint] = useState<Point | null>(null);
+    const [currentHoverPoint, setCurrentHoverPoint] = useState<Point | null>(null);
     const setFillMode = (fillMode: FillMode) => {
         _setFillMode(fillMode);
         if (['fill', 'remove'].indexOf(fillMode) === -1) {

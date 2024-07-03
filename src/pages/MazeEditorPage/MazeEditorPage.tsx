@@ -4,7 +4,7 @@ import {FillModeControl, HomeButton, MazeExporter, MazeImporter, MazeInitializer
 import React from "react";
 import {useSearchParams} from "react-router-dom";
 import "./MazeEditorPage.scss";
-import {useMazeEditor} from "@/hooks/useMazeEditor/useMazeEditor";
+import {useMazeEditor} from "@/hooks";
 
 export const MazeEditorPage = () => {
     /* State Management Operations */
@@ -31,7 +31,7 @@ export const MazeEditorPage = () => {
                     <>
                         <FillModeControl fillMode={mazeEditorState.fillMode} setFillMode={mazeEditorState.setFillMode} />
                         <MazeExporter/>
-                        <MazeViewer/>
+                        <MazeViewer className='editor' />
                     </>
                 )}
                 {!hasMaze && renderInitialize()}

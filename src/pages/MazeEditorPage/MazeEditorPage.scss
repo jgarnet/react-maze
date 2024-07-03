@@ -1,15 +1,17 @@
-.maze-col.edit:hover {
-  background: #ddd;
-}
-.maze-col.edit.fill {
-  background: #1a7a28 !important;
-}
-.maze-col.edit.remove {
-  background: #7a1a1a !important;
-}
-.maze-col.edit.start {
-  background: #1a4f7a;
-}
-.maze-col.edit.end {
-  background: #7a1a1a;
+.maze.editor {
+  .maze-col.edit:hover {
+    background: #ddd;
+  }
+  .maze-col.edit.fill {
+    background: #1a7a28 !important;
+  }
+  .maze-col.edit.remove {
+    background: #7a1a1a !important;
+  }
+  .maze-col.edit.start {
+    background: #1a4f7a;
+  }
+  .maze-col.edit.end {
+    background: #7a1a1a;
+  }
 }

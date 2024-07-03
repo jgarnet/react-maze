@@ -1,20 +1,11 @@
 import {Maze, PathPoint, Point} from "@/types";
 import {useMemo} from "react";
+import {Directions} from "@/constants/Directions";
 
-const DIRECTIONS: Point[] = [
-    // down
-    { x: 0, y: 1 },
-    // up
-    { x: 0, y: -1 },
-    // right
-    { x: 1, y: 0 },
-    // left
-    { x: -1, y: 0 }
-];
-export const useSolveMaze: (maze: Maze, start: Point, end: Point) => PathPoint | null = (maze, start, end) => {
+export const useMazeSolver: (maze: Maze, start: Point | null, end: Point | null) => Set<string> = (maze, start, end) => {
     return useMemo(() => {
         if (!maze || maze.length === 0 || !start || !end) {
-            return null;
+            return new Set<string>();
         }
         // initialize queue for BFS algorithm
         const queue: PathPoint[] = [];
@@ -43,9 +34,15 @@ export const useSolveMaze: (maze: Maze, start: Point, end: Point) => PathPoint |
         while (queue.length > 0) {
             const currentPoint = queue.shift() as PathPoint;
             if (currentPoint.x === end.x && currentPoint.y === end.y) {
-                return currentPoint;
+                const points = new Set<string>();
+                let current: PathPoint | null = currentPoint;
+                while (current) {
+                    points.add(`${current.x},${current.y}`);
+                    current = (current as any).prev;
+                }
+                return points;
             }
-            for (const direction of DIRECTIONS) {
+            for (const direction of Directions.values()) {
                 const nextPoint = { x: currentPoint.x + direction.x, y: currentPoint.y + direction.y };
                 if (isValidPoint(nextPoint)) {
                     visited[nextPoint.y][nextPoint.x] = true;
@@ -53,6 +50,6 @@ export const useSolveMaze: (maze: Maze, start: Point, end: Point) => PathPoint |
                 }
             }
         }
-        return null;
-    }, [maze]);
+        return new Set<string>();;
+    }, [maze, start, end]);
 };

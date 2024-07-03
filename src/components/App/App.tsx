@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {HomePage, MazeEditorPage, MazeSolverPage} from "@/pages";
+import {HomePage, MazeEditorPage, MazePlayerPage, MazeSolverPage} from "@/pages";
 
 export const App = () => {
 	return (
@@ -10,6 +10,7 @@ export const App = () => {
 					<Route path='/' element={<HomePage />}/>
 					<Route path='/editor' element={<MazeEditorPage />}/>
 					<Route path='/solver' element={<MazeSolverPage />}/>
+					<Route path='/player' element={<MazePlayerPage />}/>
 				</Routes>
 			</BrowserRouter>
 		</div>
