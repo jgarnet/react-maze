@@ -1,5 +1,5 @@
 .maze.player {
-  .maze-col.player, .maze-col.player.end {
+  .maze-col.player, {
     background: #1a4f7a;
   }
   .maze-col.end {
@@ -7,5 +7,8 @@
   }
   .maze-col.solution {
     background: #1a7a28;
+  }
+  .maze-col.player.end {
+    background: #064f0e;
   }
 }

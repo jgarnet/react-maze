@@ -1,6 +1,13 @@
+import React, {FC} from "react";
 import {useMazeContext} from "@/context";
+import {Maze} from "@/types";
 
-export const MazeImporter = () => {
+type MazeImporterProps = {
+    onImport?: (maze: Maze) => void;
+};
+
+export const MazeImporter: FC<MazeImporterProps> = props => {
+    const { onImport: _onImport } = props;
     const { setMaze, setStart, setEnd } = useMazeContext();
     const onImport = e => {
         const file = (e.target as any).files[0];
@@ -29,6 +36,9 @@ export const MazeImporter = () => {
             setMaze(maze);
             setStart(start);
             setEnd(end);
+            if (_onImport) {
+                _onImport(maze);
+            }
         };
     };
     return (

@@ -1,9 +1,12 @@
 import {MouseEvent, useState} from "react";
 import {FillMode, Point} from "@/types";
 import {MazeState} from "@/types/MazeState";
+import {useMazeHistory} from "@/hooks";
 
 export const useMazeEditor = (mazeState: MazeState) => {
     const { maze, setMaze, start, setStart, end, setEnd } = mazeState;
+    const mazeHistory = useMazeHistory();
+    const { addHistory } = mazeHistory;
     // toggles what fill mode is used when cells are clicked during editing
     const [fillMode, _setFillMode] = useState<FillMode>('fill');
     // keeps track of what cells to fill during editing
@@ -27,8 +30,10 @@ export const useMazeEditor = (mazeState: MazeState) => {
     };
     const setCol = (row: number, col: number, value: 0 | 1 | 2 | 3) => {
         maze[row][col] = value;
+        const newMaze = [...maze];
         clearStartAndEnd(row, col);
-        setMaze([...maze]);
+        setMaze(newMaze);
+        addHistory(newMaze);
     };
     const onFill = (row: number, col: number) => {
         switch (fillMode) {
@@ -46,7 +51,9 @@ export const useMazeEditor = (mazeState: MazeState) => {
                             clearStartAndEnd(i, j);
                         }
                     }
-                    setMaze([...maze]);
+                    const newMaze = [...maze];
+                    setMaze(newMaze);
+                    addHistory(newMaze);
                     setFillStartPoint(null);
                 } else {
                     // keep track of the first cell clicked during fill/remove mode
@@ -100,6 +107,7 @@ export const useMazeEditor = (mazeState: MazeState) => {
         onFill,
         onCellClick,
         onCellHover,
-        getCellClassName
+        getCellClassName,
+        ...mazeHistory
     };
 };

@@ -10,3 +10,5 @@ export * from './MazeRow/MazeRow';
 export * from './MazeSizeControl/MazeSizeControl';
 export * from './MazeViewer/MazeViewer';
 export * from './ToggleSolution/ToggleSolution';
+export * from './GenerateMaze/GenerateMaze';
+export * from './MazeHistory/MazeHistory';

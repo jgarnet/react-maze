@@ -1,19 +1,31 @@
-import React, {KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 import {useMazeContext} from "@/context";
+import {Maze} from "@/types";
 
-export const MazeInitializer = () => {
+type MazeInitializerProps = {
+    onInitialize?: (maze: Maze) => void;
+};
+
+export const MazeInitializer: FC<MazeInitializerProps> = props => {
+    const { onInitialize } = props;
     const { setMaze } = useMazeContext();
     const [rows, setRows] = useState<number>(25);
     const [cols, setCols] = useState<number>(25);
     const initializeMaze = () => {
         const maze = [];
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < Math.min(rows, 50); i++) {
             maze[i] = [];
-            for (let j = 0; j < cols; j++) {
+            for (let j = 0; j < Math.min(cols, 50); j++) {
                 maze[i][j] = 0;
             }
         }
         setMaze(maze);
+        if (onInitialize) {
+            onInitialize(maze);
+        }
+    };
+    const handleChange = (e: ChangeEvent<HTMLInputElement>, setter: (val: number) => void) => {
+        setter(Math.min(e.target.value, 50));
     };
     const onKeyDown = (e: KeyboardEvent) => {
         if (e.code === 'Enter') {
@@ -30,7 +42,8 @@ export const MazeInitializer = () => {
                         <input
                             type='number'
                             value={rows}
-                            onChange={e => setRows(e.target.value as number)}
+                            max={50}
+                            onChange={e => handleChange(e, setRows)}
                         />
                     </td>
                 </tr>
@@ -40,7 +53,8 @@ export const MazeInitializer = () => {
                         <input
                             type='number'
                             value={cols}
-                            onChange={e => setCols(e.target.value as number)}
+                            max={50}
+                            onChange={e => handleChange(e, setCols)}
                             onKeyDown={onKeyDown}
                         />
                     </td>
