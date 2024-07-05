@@ -11,7 +11,7 @@ export const useMazeHistory = () => {
         return JSON.parse(JSON.stringify(mazeHistory[nextHistory]));
     };
     const redo = () => {
-        const nextHistory = currentHistory + 1;//Math.min(mazeHistory.length - 1, currentHistory + 1);
+        const nextHistory = Math.min(mazeHistory.length - 1, currentHistory + 1);
         setCurrentHistory(nextHistory);
         return JSON.parse(JSON.stringify(mazeHistory[nextHistory]));
     };
