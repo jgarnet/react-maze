@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Maze} from "@/types";
 
 export const useMazeHistory = () => {
-    const MAX_HISTORY = 4;
+    const MAX_HISTORY = 10;
     const [mazeHistory, setMazeHistory] = useState<Maze[]>([]);
     const [currentHistory, setCurrentHistory] = useState<number>(0);
     const undo = () => {

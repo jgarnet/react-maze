@@ -1,5 +1,5 @@
 import {useCallback} from "react";
-import {Point} from "@/types";
+import {Maze, Point} from "@/types";
 
 /**
  * Credit to https://github.com/oppenheimj/maze-generator for original algorithm.
@@ -7,7 +7,7 @@ import {Point} from "@/types";
 export const useMazeGenerator = () => {
     return useCallback((rows: number, cols: number) => {
         // initialize maze
-        const maze = [];
+        const maze: Maze = [];
         for (let i = 0; i < rows; i++) {
             maze[i] = [];
             for (let j = 0; j < cols; j++) {
