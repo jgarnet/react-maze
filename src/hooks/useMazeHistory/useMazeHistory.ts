@@ -1,8 +1,7 @@
 import {useState} from "react";
 import {Maze} from "@/types";
 
-export const useMazeHistory = () => {
-    const MAX_HISTORY = 10;
+export const useMazeHistory = (maxHistory = 10) => {
     const [mazeHistory, setMazeHistory] = useState<Maze[]>([]);
     const [currentHistory, setCurrentHistory] = useState<number>(0);
     const undo = () => {
@@ -18,7 +17,7 @@ export const useMazeHistory = () => {
     const addHistory = (maze: Maze) => {
         const newHistory = mazeHistory.slice(0, currentHistory + 1);
         newHistory.push(JSON.parse(JSON.stringify(maze)));
-        if (newHistory.length > MAX_HISTORY) {
+        if (newHistory.length > maxHistory) {
             newHistory.shift();
         }
         setMazeHistory(newHistory);
